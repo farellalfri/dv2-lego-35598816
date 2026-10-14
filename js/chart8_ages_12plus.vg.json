@@ -1,0 +1,67 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Sets for teenagers and adults took off after 2018, led by technical and licensed themes",
+    "subtitle": "Share of each group's sets recommended for ages 12 and over, 2009 to 2022",
+    "anchor": "start"
+  },
+  "data": {"url": "data/sets_maven.csv"},
+  "transform": [
+    {"filter": "isValid(datum.min_age) && datum.min_age > 0 && datum.year >= 2009"},
+    {"calculate": "datum.min_age >= 12 ? 1 : 0", "as": "older"},
+    {"aggregate": [
+        {"op": "mean", "field": "older", "as": "share_12plus"},
+        {"op": "count", "as": "sets"}],
+     "groupby": ["year", "theme_group"]},
+    {"filter": "datum.sets >= 5"}
+  ],
+  "facet": {
+    "field": "theme_group", "type": "nominal", "title": null,
+    "sort": ["Licensed", "Modern day", "Action/Adventure", "Historical",
+             "Technical", "Young children", "Other"]
+  },
+  "columns": 3,
+  "resolve": {"axis": {"x": "independent", "y": "independent"}},
+  "spec": {
+    "width": 220,
+    "height": 110,
+    "encoding": {
+      "x": {"field": "year", "type": "quantitative", "title": null,
+            "axis": {"format": "d", "values": [2010, 2015, 2020]},
+            "scale": {"domain": [2009, 2022]}},
+      "y": {"field": "share_12plus", "type": "quantitative", "title": null,
+            "axis": {"format": "%"}, "scale": {"domain": [0, 0.6]}}
+    },
+    "layer": [
+      {
+        "mark": {"type": "line", "strokeWidth": 2},
+        "encoding": {
+          "color": {
+            "field": "theme_group", "type": "nominal", "legend": null,
+            "scale": {
+              "domain": ["Licensed", "Modern day", "Action/Adventure", "Historical",
+                        "Technical", "Young children", "Other"],
+              "range": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a",
+                        "#66a61e", "#e6ab02", "#a6a6a6"]}
+          },
+          "tooltip": [
+            {"field": "theme_group", "title": "Theme group"},
+            {"field": "year", "title": "Year"},
+            {"field": "share_12plus", "title": "Share for ages 12+", "format": ".0%"},
+            {"field": "sets", "title": "Sets with an age"}
+          ]
+        }
+      },
+      {
+        "transform": [{"filter": "datum.theme_group == 'Historical' && datum.year == 2015"}],
+        "mark": {"type": "text", "align": "left", "dx": 6, "dy": -14,
+                "fontStyle": "italic", "fontSize": 11, "color": "#555"},
+        "encoding": {"text": {"value": "No historical sets after 2015"}}
+      }
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"grid": false, "domainColor": "#999", "tickColor": "#999"}
+  }
+}

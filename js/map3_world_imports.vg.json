@@ -1,0 +1,60 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "The United States imports about 60 times more toys and games than Malaysia",
+    "subtitle": "Imports of toys, games and sports goods, USD billion, [year]",
+    "anchor": "start"
+  },
+  "width": 800,
+  "height": 400,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {
+        "url": "js/world_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "transform": [{"filter": "datum.properties.NAME != 'Antarctica'"}],
+      "mark": {"type": "geoshape", "fill": "#e8e8e8", "stroke": "white", "strokeWidth": 0.5}
+    },
+    {
+      "data": {"url": "data/toy_imports.csv"},
+      "mark": {"type": "circle", "stroke": "white", "strokeWidth": 1, "opacity": 0.85},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "size": {
+          "field": "import_usd_b", "type": "quantitative",
+          "title": "Imports (USD billion)",
+          "scale": {"range": [0, 2500]},
+          "legend": {"values": [1, 10, 50], "symbolFillColor": "#999", "symbolStrokeColor": "white"}
+        },
+        "color": {
+          "field": "highlight", "type": "nominal", "legend": null,
+          "scale": {"domain": ["Malaysia", "Australia", "Other"],
+                    "range": ["#c91a09", "#0055bf", "#888888"]}
+        },
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "import_usd_b", "title": "Imports (USD billion)", "format": ",.2f"}
+        ]
+      }
+    },
+    {
+      "data": {"url": "data/toy_imports.csv"},
+      "transform": [{"filter": "datum.highlight != 'Other'"}],
+      "mark": {"type": "text", "align": "left", "dx": 10, "fontWeight": "bold"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "country"},
+        "color": {
+          "field": "highlight", "type": "nominal", "legend": null,
+          "scale": {"domain": ["Malaysia", "Australia", "Other"],
+                    "range": ["#c91a09", "#0055bf", "#888888"]}
+        }
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

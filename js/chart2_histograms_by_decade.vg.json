@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "The typical LEGO set is three times bigger than in the 1970s, and one in nine now has over 1,000 pieces",
+    "subtitle": "Share of each decade's sets by number of pieces (log scale), 1970 to 2025",
+    "anchor": "start"
+  },
+  "data": {"url": "data/sets_rebrickable.csv"},
+  "transform": [
+    {"filter": "datum.num_parts > 0"},
+    {"calculate": "floor(datum.year / 10) * 10 + 's'", "as": "decade"},
+    {"calculate": "log(datum.num_parts) / LN10", "as": "log_parts"},
+    {"bin": {"step": 0.25, "extent": [0, 4.25]}, "field": "log_parts",
+     "as": ["bin_start", "bin_end"]},
+    {"aggregate": [{"op": "count", "as": "sets"}],
+     "groupby": ["decade", "bin_start", "bin_end"]},
+    {"joinaggregate": [{"op": "sum", "field": "sets", "as": "decade_total"}],
+     "groupby": ["decade"]},
+    {"calculate": "datum.sets / datum.decade_total", "as": "share"},
+    {"calculate": "round(pow(10, datum.bin_start))", "as": "from_pieces"},
+    {"calculate": "round(pow(10, datum.bin_end))", "as": "to_pieces"}
+  ],
+  "facet": {"field": "decade", "type": "ordinal", "title": null},
+  "columns": 3,
+  "spec": {
+    "width": 220,
+    "height": 110,
+    "mark": {"type": "bar", "color": "#6a51a3", "binSpacing": 0},
+    "encoding": {
+      "x": {"field": "bin_start", "type": "quantitative",
+            "bin": {"binned": true, "step": 0.25},
+            "title": "Pieces", "scale": {"domain": [0, 4.25]},
+            "axis": {"values": [0, 1, 2, 3, 4],
+                     "labelExpr": "format(pow(10, datum.value), ',')"}},
+      "x2": {"field": "bin_end"},
+      "y": {"field": "share", "type": "quantitative", "title": null,
+            "axis": {"format": "%"}},
+      "tooltip": [
+        {"field": "decade", "title": "Decade"},
+        {"field": "from_pieces", "title": "From (pieces)", "format": ","},
+        {"field": "to_pieces", "title": "To (pieces)", "format": ","},
+        {"field": "sets", "title": "Sets"},
+        {"field": "share", "title": "Share of decade", "format": ".1%"}
+      ]
+    }
+  },
+  "resolve": {"axis": {"x": "independent", "y": "independent"}},
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"grid": false, "domainColor": "#999", "tickColor": "#999"}
+  }
+}
