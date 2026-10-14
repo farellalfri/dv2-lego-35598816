@@ -37,3 +37,8 @@ var vg_8 = "js/chart3_waffle_theme_share.vg.json";
 vegaEmbed("#chart3", vg_8).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);
+
+var vg_9 = "js/chart6_parallel_coordinates.vg.json";
+vegaEmbed("#chart6", vg_9).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);

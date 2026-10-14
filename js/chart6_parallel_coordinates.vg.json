@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Licensed and technical sets stand apart, with far more pieces and the most minifigures",
+    "subtitle": "Median set in each theme group. Each axis runs from the lowest group (bottom) to the highest (top).",
+    "anchor": "start"
+  },
+  "data": {
+    "url": "data/sets_maven.csv",
+    "format": {"type": "csv",
+               "parse": {"pieces": "number", "minifigs": "number",
+                         "price_usd": "number", "min_age": "number"}}
+  },
+  "width": 650,
+  "height": 300,
+  "transform": [
+    {"aggregate": [
+        {"op": "median", "field": "pieces", "as": "pieces"},
+        {"op": "median", "field": "minifigs", "as": "minifigs"},
+        {"op": "median", "field": "price_usd", "as": "price_usd"},
+        {"op": "median", "field": "min_age", "as": "min_age"}],
+     "groupby": ["theme_group"]},
+    {"calculate": "datum.price_usd * 4.09", "as": "price_rm"},
+    {"fold": ["pieces", "minifigs", "price_rm", "min_age"], "as": ["key", "value"]},
+    {"joinaggregate": [
+        {"op": "min", "field": "value", "as": "min"},
+        {"op": "max", "field": "value", "as": "max"}],
+     "groupby": ["key"]},
+    {"calculate": "(datum.value - datum.min) / (datum.max - datum.min)", "as": "norm"},
+    {"calculate": "datum.key == 'pieces' ? 'Pieces' : datum.key == 'minifigs' ? 'Minifigures' : datum.key == 'price_rm' ? 'Price (RM)' : 'Starting age'",
+     "as": "measure"}
+  ],
+  "encoding": {
+    "x": {"field": "measure", "type": "nominal", "title": null,
+          "sort": ["Pieces", "Minifigures", "Price (RM)", "Starting age"],
+          "axis": {"orient": "top", "labelAngle": 0, "labelFontSize": 12,
+                   "labelFontWeight": "bold", "labelPadding": 18,
+                   "domain": false, "ticks": false}}
+  },
+  "layer": [
+    {"mark": {"type": "rule", "color": "#bbb"}},
+    {
+      "params": [{"name": "group_select",
+                  "select": {"type": "point", "fields": ["theme_group"]},
+                  "bind": "legend"}],
+      "mark": {"type": "line", "strokeWidth": 2.5, "point": true},
+      "encoding": {
+        "y": {"field": "norm", "type": "quantitative", "axis": null},
+        "color": {
+          "field": "theme_group", "type": "nominal", "title": "Theme group",
+          "scale": {"domain": ["Licensed", "Modern day", "Action/Adventure", "Historical",
+                               "Technical", "Young children", "Other"],
+                    "range": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a",
+                              "#66a61e", "#e6ab02", "#a6a6a6"]},
+          "legend": {"orient": "bottom"}},
+        "detail": {"field": "theme_group", "type": "nominal"},
+        "opacity": {"condition": {"param": "group_select", "value": 1}, "value": 0.15},
+        "tooltip": [
+          {"field": "theme_group", "type": "nominal", "title": "Theme group"},
+          {"field": "measure", "type": "nominal", "title": "Measure"},
+          {"field": "value", "type": "quantitative", "title": "Median", "format": ",.0f"}
+        ]
+      }
+    },
+    {"mark": {"type": "text", "dy": -8, "fontSize": 10, "color": "#666"},
+     "encoding": {"y": {"datum": 1, "type": "quantitative"},
+                  "text": {"aggregate": "max", "field": "max", "type": "quantitative",
+                           "format": ",.0f"}}},
+    {"mark": {"type": "text", "dy": 12, "fontSize": 10, "color": "#666"},
+     "encoding": {"y": {"datum": 0, "type": "quantitative"},
+                  "text": {"aggregate": "min", "field": "min", "type": "quantitative",
+                           "format": ",.0f"}}}
+  ],
+  "config": {"view": {"stroke": null}}
+}
