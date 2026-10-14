@@ -42,3 +42,8 @@ var vg_9 = "js/chart6_parallel_coordinates.vg.json";
 vegaEmbed("#chart6", vg_9).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);
+
+var vg_10 = "js/chart5_butterfly_age_bands.vg.json";
+vegaEmbed("#chart5", vg_10).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);

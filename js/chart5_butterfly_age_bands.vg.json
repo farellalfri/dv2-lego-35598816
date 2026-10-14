@@ -1,0 +1,100 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Licensed sets skew older: only 11% are for under-6s, against 42% of other sets",
+    "subtitle": "Share of each group's sets by recommended starting age, 1970 to 2022",
+    "anchor": "start"
+  },
+  "data": {
+    "url": "data/sets_maven.csv",
+    "format": {"type": "csv", "parse": {"min_age": "number"}}
+  },
+  "transform": [
+    {"filter": "isValid(datum.min_age) && datum.min_age > 0"},
+    {"calculate": "datum.min_age < 6 ? 'Under 6' : datum.min_age <= 8 ? '6 to 8' : datum.min_age <= 11 ? '9 to 11' : datum.min_age <= 15 ? '12 to 15' : '16 and over'",
+     "as": "age_band"},
+    {"calculate": "datum.theme_group == 'Licensed' ? 'Licensed sets' : 'All other sets'", "as": "side"},
+    {"aggregate": [{"op": "count", "as": "sets"}], "groupby": ["side", "age_band"]},
+    {"joinaggregate": [{"op": "sum", "field": "sets", "as": "side_total"}], "groupby": ["side"]},
+    {"calculate": "datum.sets / datum.side_total", "as": "share"}
+  ],
+  "spacing": 0,
+  "hconcat": [
+    {
+      "title": {"text": "Licensed sets", "fontSize": 13, "color": "#1b9e77", "anchor": "end"},
+      "width": 280,
+      "height": 200,
+      "transform": [{"filter": "datum.side == 'Licensed sets'"}],
+      "encoding": {
+        "y": {"field": "age_band", "type": "ordinal", "axis": null,
+              "sort": ["Under 6", "6 to 8", "9 to 11", "12 to 15", "16 and over"]},
+        "x": {"field": "share", "type": "quantitative", "title": null,
+              "scale": {"domain": [0, 0.7], "reverse": true},
+              "axis": {"format": "%", "values": [0, 0.2, 0.4, 0.6], "grid": true}}
+      },
+      "layer": [
+        {
+          "mark": {"type": "bar", "color": "#1b9e77",
+                   "cornerRadiusTopLeft": 3, "cornerRadiusBottomLeft": 3},
+          "encoding": {
+            "tooltip": [
+              {"field": "age_band", "type": "nominal", "title": "Starting age"},
+              {"field": "share", "type": "quantitative", "title": "Share of licensed sets", "format": ".1%"},
+              {"field": "sets", "type": "quantitative", "title": "Sets"}
+            ]
+          }
+        },
+        {
+          "mark": {"type": "text", "align": "right", "dx": -4, "fontSize": 11, "color": "#333"},
+          "encoding": {"text": {"field": "share", "type": "quantitative", "format": ".0%"}}
+        }
+      ]
+    },
+    {
+      "width": 90,
+      "height": 200,
+      "transform": [{"filter": "datum.side == 'Licensed sets'"}],
+      "mark": {"type": "text", "fontWeight": "bold", "fontSize": 12},
+      "encoding": {
+        "y": {"field": "age_band", "type": "ordinal", "axis": null,
+              "sort": ["Under 6", "6 to 8", "9 to 11", "12 to 15", "16 and over"]},
+        "text": {"field": "age_band", "type": "nominal"}
+      }
+    },
+    {
+      "title": {"text": "All other sets", "fontSize": 13, "color": "#777777", "anchor": "start"},
+      "width": 280,
+      "height": 200,
+      "transform": [{"filter": "datum.side == 'All other sets'"}],
+      "encoding": {
+        "y": {"field": "age_band", "type": "ordinal", "axis": null,
+              "sort": ["Under 6", "6 to 8", "9 to 11", "12 to 15", "16 and over"]},
+        "x": {"field": "share", "type": "quantitative", "title": null,
+              "scale": {"domain": [0, 0.7]},
+              "axis": {"format": "%", "values": [0, 0.2, 0.4, 0.6], "grid": true}}
+      },
+      "layer": [
+        {
+          "mark": {"type": "bar", "color": "#a6a6a6",
+                   "cornerRadiusTopRight": 3, "cornerRadiusBottomRight": 3},
+          "encoding": {
+            "tooltip": [
+              {"field": "age_band", "type": "nominal", "title": "Starting age"},
+              {"field": "share", "type": "quantitative", "title": "Share of other sets", "format": ".1%"},
+              {"field": "sets", "type": "quantitative", "title": "Sets"}
+            ]
+          }
+        },
+        {
+          "mark": {"type": "text", "align": "left", "dx": 4, "fontSize": 11, "color": "#333"},
+          "encoding": {"text": {"field": "share", "type": "quantitative", "format": ".0%"}}
+        }
+      ]
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"domain": false, "ticks": false, "gridColor": "#eee"},
+    "scale": {"bandPaddingInner": 0.25}
+  }
+}
