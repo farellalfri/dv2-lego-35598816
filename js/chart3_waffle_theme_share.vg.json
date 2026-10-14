@@ -1,0 +1,40 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Historical themes make up just 3% of LEGO sets, far fewer than licensed franchises",
+    "subtitle": "Share of all LEGO sets by theme group, 1970 to 2022. Each square is 1%.",
+    "anchor": "start"
+  },
+  "data": {"url": "data/waffle_cells.csv"},
+  "width": 300,
+  "height": 300,
+  "params": [
+    {"name": "group_select",
+     "select": {"type": "point", "fields": ["theme_group"]},
+     "bind": "legend"}
+  ],
+  "transform": [
+    {"calculate": "datum.cell % 10", "as": "col"},
+    {"calculate": "floor(datum.cell / 10)", "as": "row"},
+    {"joinaggregate": [{"op": "count", "as": "percent"}], "groupby": ["theme_group"]}
+  ],
+  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 3, "cornerRadius": 2},
+  "encoding": {
+    "x": {"field": "col", "type": "ordinal", "axis": null},
+    "y": {"field": "row", "type": "ordinal", "axis": null},
+    "color": {
+      "field": "theme_group", "type": "nominal", "title": "Theme group",
+      "scale": {"domain": ["Licensed", "Modern day", "Action/Adventure", "Historical",
+                           "Technical", "Young children", "Other"],
+                "range": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a",
+                          "#66a61e", "#e6ab02", "#a6a6a6"]},
+      "legend": {"orient": "right"}
+    },
+    "opacity": {"condition": {"param": "group_select", "value": 1}, "value": 0.2},
+    "tooltip": [
+      {"field": "theme_group", "type": "nominal", "title": "Theme group"},
+      {"field": "percent", "type": "quantitative", "title": "Share of sets (%)"}
+    ]
+  },
+  "config": {"view": {"stroke": null}}
+}

@@ -32,3 +32,8 @@ var vg_7 = "js/chart7_boxplot_price.vg.json";
 vegaEmbed("#chart7", vg_7).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);
+
+var vg_8 = "js/chart3_waffle_theme_share.vg.json";
+vegaEmbed("#chart3", vg_8).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);
