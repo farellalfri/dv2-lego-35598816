@@ -1,0 +1,108 @@
+/* Built Brick by Brick: page styles */
+
+:root {
+  --ink: #1f2328;
+  --muted: #5a6270;
+  --rule: #e3e6eb;
+  --red: #c91a09;
+  --yellow: #f2cd37;
+  --blue: #0055bf;
+  --green: #237841;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.page { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+
+/* Brick studs: a row of circles on top of a bar, drawn with a CSS mask */
+.studs {
+  height: 18px;
+  width: 140px;
+  background: var(--fill, var(--red));
+  margin-bottom: 12px;
+  -webkit-mask: radial-gradient(circle 5.5px at 10px 6px, #000 97%, transparent) 0 0 / 20px 12px repeat-x,
+                linear-gradient(#000, #000) bottom / 100% 8px no-repeat;
+          mask: radial-gradient(circle 5.5px at 10px 6px, #000 97%, transparent) 0 0 / 20px 12px repeat-x,
+                linear-gradient(#000, #000) bottom / 100% 8px no-repeat;
+}
+.studs.wide {
+  width: 100%;
+  --fill: linear-gradient(90deg, var(--red) 0 25%, var(--yellow) 25% 50%, var(--blue) 50% 75%, var(--green) 75%);
+}
+.studs.red { --fill: var(--red); }
+.studs.yellow { --fill: var(--yellow); }
+.studs.blue { --fill: var(--blue); }
+.studs.green { --fill: var(--green); }
+
+/* Opening */
+.hero { padding: 40px 0 32px; }
+.hero h1 { font-size: 60px; font-weight: 700; line-height: 1.05; margin: 16px 0 6px; }
+.standfirst { font-size: 21px; font-weight: 500; color: var(--muted); max-width: 40ch; margin: 0 0 28px; line-height: 1.35; }
+.hook-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 36px;
+  align-items: center;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 20px 0;
+}
+.big-number { font-size: 140px; font-weight: 700; line-height: 0.9; color: var(--red); margin: 0; }
+.hook { font-size: 21px; line-height: 1.45; max-width: 38ch; margin: 0; }
+.byline { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
+
+/* Parts of the story */
+.act { padding: 36px 0 4px; border-top: 1px solid var(--rule); }
+.eyebrow { font-size: 13px; font-weight: 600; color: var(--muted); margin: 0; }
+.act h2 { font-size: 38px; font-weight: 700; line-height: 1.1; margin: 2px 0 10px; }
+.intro { font-size: 18px; line-height: 1.55; max-width: 60ch; margin: 0 0 24px; }
+
+/* Charts and their text */
+.figure { margin: 0 0 32px; }
+.caption { font-size: 15px; max-width: 60ch; margin: 8px 0 0; }
+.how-to-read { font-size: 14px; color: var(--muted); max-width: 60ch; margin: 8px 0 0; }
+.how-to-read::before { content: "How to read: "; font-weight: 600; color: var(--ink); }
+
+/* Full-width charts: Vega-Embed shrinks its div to fit by default, so stretch it
+   to the column for specs that use "width": "container" */
+.figure:not(.row) > .vega-embed { width: 100%; }
+
+/* A chart beside its text: the chart keeps its own width, the text fills the rest */
+.row { display: grid; grid-template-columns: auto minmax(220px, 1fr); gap: 36px; align-items: center; }
+.row.flip { grid-template-columns: minmax(220px, 1fr) auto; }
+.side .caption, .side .how-to-read { margin-top: 0; }
+
+/* Big-number callouts */
+.stat { border-left: 4px solid var(--fill, var(--red)); padding: 2px 0 2px 18px; }
+.stat .num { font-size: 60px; font-weight: 700; line-height: 1; margin: 0 0 6px; color: var(--fill, var(--red)); }
+.stat p { margin: 0; font-size: 16px; max-width: 26ch; }
+.stat.pink { --fill: #e7298a; }
+
+.transition {
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.35;
+  max-width: 40ch;
+  margin: 4px 0 32px;
+  padding-left: 18px;
+  border-left: 4px solid var(--ink);
+}
+.box-key { display: block; margin-top: 10px; }
+
+/* Closing and data notes */
+.closing { padding: 40px 0; border-top: 1px solid var(--rule); }
+.closing p { font-size: 27px; font-weight: 600; line-height: 1.4; max-width: 42ch; margin: 0; }
+.closing .accent { color: var(--red); }
+.about { border-top: 1px solid var(--rule); padding: 32px 0 48px; color: var(--muted); font-size: 13px; }
+.about h2 { font-size: 20px; color: var(--ink); margin: 0 0 10px; }
+.about ul { columns: 2; column-gap: 48px; padding-left: 18px; margin: 0 0 12px; }
+.about li { margin-bottom: 8px; break-inside: avoid; }

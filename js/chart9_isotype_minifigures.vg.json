@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Flagship sets pack up to 28 minifigures, around nine times a typical licensed set",
+    "subtitle": "Minifigures in five of LEGO's largest sets. Each figure icon is one minifigure.",
+    "anchor": "start"
+  },
+  "data": {
+    "url": "data/flagship_sets.csv",
+    "format": {"type": "csv", "parse": {"minifigs": "number", "price_usd": "number"}}
+  },
+  "width": 650,
+  "height": 220,
+  "transform": [
+    {"calculate": "datum.price_usd * 4.09", "as": "price_rm"},
+    {"calculate": "replace(datum.set_name, / \\(.*\\)/, '')", "as": "set"}
+  ],
+  "encoding": {
+    "y": {"field": "set", "type": "nominal", "title": null,
+          "sort": {"field": "minifigs", "op": "max", "order": "descending"},
+          "axis": {"ticks": false, "domain": false, "labelFontSize": 12, "labelLimit": 200}}
+  },
+  "layer": [
+    {
+      "transform": [
+        {"calculate": "sequence(0, datum.minifigs)", "as": "figure"},
+        {"flatten": ["figure"]}
+      ],
+      "mark": {"type": "point", "filled": true, "size": 230, "opacity": 1,
+               "shape": "M -0.3 -0.6 A 0.3 0.3 0 1 1 0.3 -0.6 A 0.3 0.3 0 1 1 -0.3 -0.6 Z M -0.45 -0.15 L 0.45 -0.15 L 0.45 0.5 L 0.2 0.5 L 0.2 1 L -0.2 1 L -0.2 0.5 L -0.45 0.5 Z"},
+      "encoding": {
+        "x": {"field": "figure", "type": "quantitative", "axis": null,
+              "scale": {"domain": [-1, 32]}},
+        "color": {"field": "theme_group", "type": "nominal", "title": "Theme group",
+                  "scale": {"domain": ["Licensed", "Modern day", "Action/Adventure", "Historical",
+                                       "Technical", "Young children", "Other"],
+                            "range": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a",
+                                      "#66a61e", "#e6ab02", "#a6a6a6"]},
+                  "legend": {"orient": "bottom", "values": ["Licensed", "Action/Adventure", "Technical", "Other"]}},
+        "tooltip": [
+          {"field": "set", "type": "nominal", "title": "Set"},
+          {"field": "minifigs", "type": "quantitative", "title": "Minifigures"},
+          {"field": "price_rm", "type": "quantitative", "title": "Launch price (RM)", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 4, "fontSize": 12, "fontWeight": "bold"},
+      "encoding": {
+        "x": {"field": "minifigs", "type": "quantitative"},
+        "text": {"field": "minifigs", "type": "quantitative"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

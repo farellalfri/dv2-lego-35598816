@@ -1,3 +1,13 @@
+var opts = {
+  "actions": false,
+  "config": {
+    "font": "Poppins",
+    "title": {"font": "Poppins", "fontSize": 16, "fontWeight": 600,
+              "subtitleFont": "Poppins", "subtitleFontSize": 12.5,
+              "subtitleColor": "#5a6270", "subtitlePadding": 6}
+  }
+};
+
 var vg_1 = "js/map1_choropleth.vg.json";
 vegaEmbed("#map1", vg_1).then(function(result) {
   // Access the Vega view instance as result.view
@@ -45,5 +55,15 @@ vegaEmbed("#chart6", vg_9).then(function(result) {
 
 var vg_10 = "js/chart5_butterfly_age_bands.vg.json";
 vegaEmbed("#chart5", vg_10).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);
+
+var vg_11 = "js/chart9_isotype_minifigures.vg.json";
+vegaEmbed("#chart9", vg_11).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);
+
+var vg_12 = "js/map2_dorling_states.vg.json";
+vegaEmbed("#map2", vg_12).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);

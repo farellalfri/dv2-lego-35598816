@@ -7,151 +7,224 @@
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+  rel="stylesheet">
+
+  <!-- CSS file -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+
+  <!-- Chart embeds -->
   <script src="js/vega_lite_vis.js"></script>
 </head>
 <body>
-  <h1>Built Brick by Brick</h1>
-  <div id="map3"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each circle is a country. The bigger the circle, the more toys, games and sports
-      goods it imported by value. Malaysia is shown in red, Australia in blue. Hover over
-      a circle to see its exact value.</p>
+  <div class="page">
 
-    <h3>What this shows</h3>
-    <p>The United States imported USD 54.2 billion, about 60 times Malaysia's
-      USD 882 million. Even Australia, with a smaller population than Malaysia, imports
-      about four times as much. LEGO designs and prices its sets for those big markets
-      first, and Malaysian shoppers pay those prices converted into ringgit.</p>
+  <!-- ===================== OPENING ===================== -->
+  <header class="hero">
+    <div class="studs wide"></div>
+    <h1>Built Brick by Brick</h1>
+    <p class="standfirst">How LEGO grew up, went Hollywood, and who in Malaysia can still afford
+      to play</p>
+    <div class="hook-row">
+      <p class="big-number">46%</p>
+      <p class="hook">In Sabah, one LEGO castle costs almost half of a household's monthly
+        spending.
+        In Putrajaya, it costs less than a fifth. How did a box of bricks get here?</p>
+    </div>
+    <p class="byline">By Farell Naufaldi Alfri, 15th October 2026</p>
+  </header>
 
-    <p class="note">Note: the figures cover all toys, games and sports equipment, not only
-      LEGO. Source: OEC, imports under chapter 95 of the Harmonized System (HS92), 2022.</p>
+  <!-- ===================== PART 1 ===================== -->
+  <section class="act" id="act1">
+    <div class="studs red"></div>
+    <p class="eyebrow">Part 1</p>
+    <h2>From bricks to blockbusters</h2>
+    <p class="intro">LEGO is a global toy, but it is designed for the world's richest markets.
+      Over five decades, it has also changed what it makes, from simple building sets to film
+      and TV franchises.</p>
+
+    <div class="figure">
+      <div id="map3"></div>
+      <p class="caption">The United States imports about 60 times more toys than Malaysia. LEGO
+        designs and prices its sets for big markets like these, and Malaysian shoppers pay those
+        prices in ringgit.</p>
+    </div>
+
+    <div class="figure">
+      <div id="chart1"></div>
+      <p class="caption">Licensed sets did not exist until 1999. Today they are LEGO's largest
+        theme group.</p>
+      <p class="how-to-read">Drag across the grey strip to zoom into any period, and
+        double-click it to reset.</p>
+    </div>
+
+    <div class="figure row flip">
+      <div class="side">
+        <p class="caption">The sets got bigger too: the typical set has tripled in size since the
+          1970s, and one in nine now has over 1,000 pieces.</p>
+      </div>
+      <div id="chart2"></div>
+    </div>
+  </section>
+
+  <!-- ===================== PART 2 ===================== -->
+  <section class="act" id="act2">
+    <div class="studs yellow"></div>
+    <p class="eyebrow">Part 2</p>
+    <h2>The past fades</h2>
+    <p class="intro">As franchises arrived, the castles and pirates that once defined LEGO
+      quietly disappeared. Their place has been taken by themes drawn from Asian culture.</p>
+
+    <div class="figure row">
+      <div id="chart3"></div>
+      <div class="side stat pink">
+        <p class="num">3%</p>
+        <p>of all LEGO sets are historical themes, against 16% for licensed franchises.</p>
+      </div>
+    </div>
+
+    <div class="figure">
+      <div id="chart4"></div>
+      <p class="caption">Ninjago alone has released 626 sets since 2011, more than every
+        historical theme here combined. Monkie Kid, inspired by Journey to the West, and the
+        Chinese Traditional Festivals sets bring themes many Malaysian readers will recognise.</p>
+    </div>
+
+    <p class="transition">Licences did more than change the themes. They changed who LEGO is for.</p>
+  </section>
+
+  <!-- ===================== PART 3 ===================== -->
+  <section class="act" id="act3">
+    <div class="studs blue"></div>
+    <p class="eyebrow">Part 3</p>
+    <h2>Built for grown-ups</h2>
+    <p class="intro">LEGO increasingly designs for teenagers and adults. Its sets are bigger,
+      packed with characters, and priced to match.</p>
+
+    <div class="figure row">
+      <div id="chart5"></div>
+      <div class="side">
+        <p class="how-to-read">Licensed sets extend to the left and all other sets to the right.
+          Each side shows its own shares, so the two can be compared directly.</p>
+      </div>
+    </div>
+
+    <div class="figure row flip">
+      <div class="side">
+        <p class="caption">For a decade, only about 3% of new sets were aimed at ages 12 and
+          over. From 2019, that share climbed to 15.5%.</p>
+      </div>
+      <div id="chart8"></div>
+    </div>
+
+    <div class="figure row">
+      <div id="chart6"></div>
+      <div class="side">
+        <p class="how-to-read">Each line is the typical set in one theme group. Each axis runs
+          from the lowest group at the bottom to the highest at the top.</p>
+      </div>
+    </div>
+
+    <div class="figure">
+      <div id="chart7"></div>
+      <svg class="box-key" width="320" height="44" role="img"
+        aria-label="Box plot key: the box holds the middle half of sets and the line inside is the median">
+        <line x1="20" y1="14" x2="110" y2="14" stroke="#888"/>
+        <line x1="210" y1="14" x2="300" y2="14" stroke="#888"/>
+        <rect x="110" y="5" width="100" height="18" fill="#ddd" stroke="#888"/>
+        <line x1="150" y1="5" x2="150" y2="23" stroke="black" stroke-width="2.5"/>
+        <text x="20" y="38" font-size="11" fill="#555">typical low</text>
+        <text x="115" y="38" font-size="11" fill="#555">middle half, median</text>
+        <text x="245" y="38" font-size="11" fill="#555">typical high</text>
+      </svg>
+      <p class="how-to-read">The box holds the middle half of each group's sets. The black line
+        is the median: half the sets cost less, half cost more.</p>
+    </div>
+
+    <div class="figure">
+      <div id="chart9"></div>
+      <p class="caption">All five of these flagship sets cost over RM 1,000. Lion Knights' Castle,
+        LEGO's castle comeback, was designed for adults and costs about RM 1,636.</p>
+    </div>
+
+    <p class="transition">So what does RM 1,636 mean for a Malaysian family?</p>
+  </section>
+
+  <!-- ===================== PART 4 ===================== -->
+  <section class="act" id="act4">
+    <div class="studs green"></div>
+    <p class="eyebrow">Part 4</p>
+    <h2>Who gets to play?</h2>
+    <p class="intro">Household spending varies widely across Malaysia, so the same box means
+      very different things in different places.</p>
+
+    <div class="figure">
+      <div id="map1"></div>
+      <p class="caption">Households around Kuala Lumpur spend more than three times as much each
+        month as those in rural Sabah.</p>
+    </div>
+
+    <div class="figure row">
+      <div id="map2"></div>
+      <div class="side">
+        <div class="stat">
+          <p class="num">46%</p>
+          <p>of a month's household spending in Sabah, for one castle.</p>
+        </div>
+        <p class="how-to-read" style="margin-top: 20px;">Each circle is a state, sized by
+          population and placed near its real location. Darker circles mean the castle takes a
+          bigger share of monthly spending.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING ===================== -->
+  <section class="closing">
+  <h2>How did a box of bricks get here?</h2>
+  <div class="recap">
+    <div><p class="num">1999</p><p>first licensed sets</p></div>
+    <div><p class="num">3&times;</p><p>bigger than in the 1970s</p></div>
+    <div><p class="num">15.5%</p><p>of new sets for ages 12+</p></div>
+    <div><p class="num red">46%</p><p>of a month's spending in Sabah</p></div>
   </div>
+  <p class="closing-text">Step by step, LEGO followed Hollywood and grew up with its fans. Its sets
+    became licensed, bigger and aimed at older builders, and its flagship sets now cost well over
+    RM 1,000. A typical set, at around RM 123, is still within reach almost everywhere in Malaysia,
+    about 3.5% of a month's spending even in Sabah. But the castles, starships and display models
+    LEGO now builds for adults are a different story.
+    <span class="accent">In Putrajaya, Lion Knights' Castle is a treat. In Sabah, it is almost half
+    a month's budget.</span></p>
+</section>
 
-  <div id="chart1"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each row is a theme group and each column a year. Darker cells mean more sets were
-      released. Drag across the grey strip underneath to zoom into a period, and double-click it
-      to reset.</p>
+  <!-- ===================== ABOUT THE DATA ===================== -->
+  <footer class="about">
+    <h2>About the data</h2>
+    <ul>
+      <li>LEGO sets: Rebrickable (sets with at least one part, 1970 to 2025, excluding gear,
+        books and promotional items) and the Maven Analytics LEGO Sets dataset (1970 to 2022).
+        Ages, prices and minifigures come from Maven and cover only sets with a recorded value.</li>
+      <li>Prices are US launch prices, converted at USD 1 = RM 4.09 and not adjusted for
+        inflation. Malaysian shelf prices may differ.</li>
+      <li>Theme groups are based on Brickset's groupings, simplified to seven. Lion Knights'
+        Castle is grouped as Technical because it was designed as an adult model.</li>
+      <li>Toy imports: OEC, chapter 95 of the Harmonized System (HS92), [year]. The figures
+        cover all toys, games and sports equipment, not only LEGO.</li>
+      <li>Household spending: Department of Statistics Malaysia, Household Income and
+        Expenditure Survey 2024. Perlis, Kuala Lumpur, Labuan and Putrajaya use state-level
+        figures. Six districts created after the boundary map was drawn (Membakut, Gedong,
+        Sebuyau, Siburan, Pantu and Lingga) appear within the older districts they were split
+        from.</li>
+      <li>Population: Department of Statistics Malaysia, 2024 estimates. Boundaries: Department
+        of Statistics Malaysia and Natural Earth.</li>
+    </ul>
+    <p>Created by Farell Naufaldi Alfri, 15th October 2026. LEGO is a
+      trademark of the LEGO Group; this is an independent student project.</p>
+  </footer>
 
-    <h3>What this shows</h3>
-    <p>LEGO released no licensed sets until 1999, when the first Star Wars sets appeared. Within
-      two decades, licensed themes became the company's largest group, every year since 2015. Over the same period, historical themes faded: none appear between 2017 and 2024.</p>
-
-    <p class="note">Note: Based on Rebrickable's catalogue of sets with at least one part,
-      excluding gear, books and promotional items.</p>
-  </div>
-
-  <div id="chart2"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each small chart is one decade. Taller bars mean a bigger share of that decade's sets had
-      that many pieces. Each labelled step along the bottom is ten times bigger than the last.</p>
-
-    <h3>What this shows</h3>
-    <p>The typical set grew from 56 pieces in the 1970s to 177 in the 2020s, with most of the
-      growth after 2000. Sets with over 1,000 pieces went from almost none to about one in nine.</p>
-
-    <p class="note">Note: The 2020s cover 2020 to 2025. Each bar shows a share of the decade's sets, so decades with different numbers of sets can be compared.</p>
-  </div>
-
-  <div id="chart3"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each square is 1% of all LEGO sets released from 1970 to 2022, and each row of ten is 10%. 
-      Click a group in the legend to highlight it.</p>
-
-    <h3>What this shows</h3>
-    <p>Historical themes such as Castle and Pirates are central to LEGO's image, yet they make up
-      only 3% of its sets. Licensed franchises account for 16%, and modern-day themes such as City 18%. The large 'Other' group is mostly classic brick boxes, collectible items and miscellaneous sets.</p>
-
-    <p class="note">Note: Based on 12,757 sets from the Maven LEGO dataset (1970 to 2022). Shares
-      are rounded to whole percentages so the squares total 100.</p>
-  </div>
-
-  <div id="chart4"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each bar shows the years a theme was on sale. Gaps mean the theme was paused, then brought
-      back.</p>
-
-    <h3>What this shows</h3>
-    <p>Castle ran for almost four decades before disappearing in 2016, and Pirates came back in
-      five separate waves. Most other historical themes lasted only a few years. Culturally inspired themes now dominate this space: Ninjago has released 626 sets since 2011, more than all these historical themes combined, joined by Monkie Kid, based on the Chinese classic Journey to the West, and LEGO's Chinese Traditional Festivals sets, both familiar to many Malaysian readers.</p>
-
-    <p class="note">Note: A run counts as continuous if there is no more than one year without new
-      sets. Runs of fewer than three sets, mostly promotional items, are left out.</p>
-  </div>
-
-  <div id="chart5"></div>
-
-  <div id="chart6"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each vertical line is one measure, with the lowest group at the bottom and the highest at
-      the top. The numbers show the real values at each end. Follow a coloured line across to see that group's typical set, and click a group in the legend to highlight it.</p>
-
-    <h3>What this shows</h3>
-    <p>A typical licensed set has 235 pieces and three minifigures, and a typical technical set
-      206 pieces, two to three times as many as most other groups. Young children's sets have the fewest pieces but cost more than action or historical sets, since large Duplo bricks cost more per piece.</p>
-
-    <p class="note">Note: Values are medians: half the group's sets are above, half below. 
-      Minifigure counts are whole numbers, so several groups share the same median and their lines overlap on that axis.</p>
-  </div>
-
-  <div id="chart7"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <svg width="320" height="44" role="img"
-    aria-label="Box plot key: the box holds the middle half of sets and the line inside is the median">
-      <line x1="20" y1="14" x2="110" y2="14" stroke="#888"/>
-      <line x1="210" y1="14" x2="300" y2="14" stroke="#888"/>
-      <rect x="110" y="5" width="100" height="18" fill="#ddd" stroke="#888"/>
-      <line x1="150" y1="5" x2="150" y2="23" stroke="black" stroke-width="2.5"/>
-      <text x="20" y="38" font-size="11" fill="#555">typical low</text>
-      <text x="115" y="38" font-size="11" fill="#555">middle half, median</text>
-      <text x="245" y="38" font-size="11" fill="#555">typical high</text>
-    </svg>
-
-    <h3>What this shows</h3>
-    <p>A typical technical set costs about RM 164 at launch, against RM 123 for licensed and
-      modern-day sets and RM 41 for the 'Other' group. Licensed sets reach the highest prices of all, up to about RM 3,476, beyond what many Malaysian households spend in a month.</p>
-
-    <p class="note">Note: Prices are US recommended prices when each set was launched, converted
-      at one rate (USD 1 = RM 4.09) and not adjusted for inflation. Only sets with a recorded price are included (5,168 of 12,757).</p>
-  </div>
-
-  <div id="chart8"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each small chart is one theme group. The line shows what share of that year's sets were
-      recommended for ages 12 and over.</p>
-
-    <h3>What this shows</h3>
-    <p>For a decade, only about 3% of LEGO sets were aimed at ages 12 and over. From 2019 that
-      share climbed, reaching 15.5% by 2022, led by technical sets (about 40%) and licensed sets. Sets for young children and modern-day themes stayed firmly aimed at younger builders.</p>
-
-    <p class="note">Note: Only sets with a recommended age are included (5,787 of 12,757). Few
-      historical sets since 2009 have one, so that panel is mostly empty.</p>
-  </div>
-
-  <div id="map1"></div>
-  <div class="explain">
-    <h3>How to read</h3>
-    <p>Each shape is a district. Darker districts spend more per household each month,
-      on average. Hover over a district to see its value.</p>
-
-    <h3>What this shows</h3>
-    <p>Households in Petaling spend about RM 8,210 a month on average, more than three times
-      as much as in Kalabakan (RM 2,257). The highest-spending areas cluster around
-      Kuala Lumpur, while the lowest are in rural Sabah.</p>
-
-    <p class="note">Note: Perlis, Kuala Lumpur, Labuan and Putrajaya use state-level figures.
-      Six districts created after the boundary map was drawn (Membakut, Gedong, Sebuyau,
-      Siburan, Pantu and Lingga) appear within the older districts they were split from.</p>
-  </div>
-
-
+</div>
 </body>
 </html>
