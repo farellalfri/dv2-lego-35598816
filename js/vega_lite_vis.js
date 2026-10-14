@@ -27,3 +27,8 @@ var vg_6 = "js/chart4_gantt_themes.vg.json";
 vegaEmbed("#chart4", vg_6).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);
+
+var vg_7 = "js/chart7_boxplot_price.vg.json";
+vegaEmbed("#chart7", vg_7).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);

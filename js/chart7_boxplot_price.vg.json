@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Technical sets cost the most and vary the most, while licensed sets include the priciest of all",
+    "subtitle": "Launch price of each set in ringgit (converted from US dollars at RM 4.09), log scale",
+    "anchor": "start"
+  },
+  "data": {"url": "data/sets_maven.csv"},
+  "width": 700,
+  "height": 300,
+  "transform": [
+    {"filter": "isValid(datum.price_usd) && datum.price_usd > 0"},
+    {"calculate": "toNumber(datum.price_usd) * 4.09", "as": "price_rm"},
+    {"joinaggregate": [{"op": "median", "field": "price_rm", "as": "group_median"}],
+     "groupby": ["theme_group"]}
+  ],
+  "mark": {"type": "boxplot", "extent": 1.5, "size": 22,
+           "median": {"color": "black", "strokeWidth": 2},
+           "outliers": {"size": 8, "opacity": 0.4}},
+  "encoding": {
+    "y": {"field": "theme_group", "type": "nominal", "title": null,
+          "sort": {"field": "group_median", "op": "max", "order": "descending"},
+          "axis": {"ticks": false, "domain": false}},
+    "x": {"field": "price_rm", "type": "quantitative", "title": "Launch price (RM)",
+          "scale": {"type": "log", "domain": [5, 10000]},
+          "axis": {"values": [10, 30, 100, 300, 1000, 3000, 10000], "format": ",",
+                   "grid": true}},
+    "color": {"field": "theme_group", "type": "nominal", "legend": null,
+              "scale": {"domain": ["Licensed", "Modern day", "Action/Adventure", "Historical",
+                                   "Technical", "Young children", "Other"],
+                        "range": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a",
+                                  "#66a61e", "#e6ab02", "#a6a6a6"]}}
+  },
+  "config": {"view": {"stroke": null}}
+}
