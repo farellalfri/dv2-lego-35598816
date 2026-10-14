@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Built Brick by Brick</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+  <script src="js/vega_lite_vis.js"></script>
+</head>
+<body>
+  <h1>Built Brick by Brick</h1>
+  <div id="map3"></div>
+  <div class="explain">
+    <h3>How to read</h3>
+    <p>Each circle is a country. The bigger the circle, the more toys, games and sports
+      goods it imported by value. Malaysia is shown in red, Australia in blue. Hover over
+      a circle to see its exact value.</p>
+
+    <h3>What this shows</h3>
+    <p>The United States imported USD 54.2 billion, about 60 times Malaysia's
+      USD 882 million. Even Australia, with a smaller population than Malaysia, imports
+      about four times as much. LEGO designs and prices its sets for those big markets
+      first, and Malaysian shoppers pay those prices converted into ringgit.</p>
+
+    <p class="note">Note: the figures cover all toys, games and sports equipment, not only
+      LEGO. Source: OEC, imports under chapter 95 of the Harmonized System (HS92), 2022.</p>
+  </div>
+
+  <div id="chart1"></div>
+  <div class="explain">
+    <h3>How to read</h3>
+    <p>Each row is a theme group and each column a year. Darker cells mean more sets were
+      released. Drag across the grey strip underneath to zoom into a period, and double-click it
+      to reset.</p>
+
+    <h3>What this shows</h3>
+    <p>LEGO released no licensed sets until 1999, when the first Star Wars sets appeared. Within
+      two decades, licensed themes became the company's largest group, every year since 2015. Over the same period, historical themes faded: none appear between 2017 and 2024.</p>
+
+    <p class="note">Note: Based on Rebrickable's catalogue of sets with at least one part,
+      excluding gear, books and promotional items.</p>
+  </div>
+
+  <div id="chart2"></div>
+  <div class="explain">
+    <h3>How to read</h3>
+    <p>Each small chart is one decade. Taller bars mean a bigger share of that decade's sets had
+      that many pieces. Each labelled step along the bottom is ten times bigger than the last.</p>
+
+    <h3>What this shows</h3>
+    <p>The typical set grew from 56 pieces in the 1970s to 177 in the 2020s, with most of the
+      growth after 2000. Sets with over 1,000 pieces went from almost none to about one in nine.</p>
+
+    <p class="note">Note: The 2020s cover 2020 to 2025. Each bar shows a share of the decade's sets, so decades with different numbers of sets can be compared.</p>
+  </div>
+
+  <div id="chart8"></div>
+  <div class="explain">
+    <h3>How to read</h3>
+    <p>Each small chart is one theme group. The line shows what share of that year's sets were
+      recommended for ages 12 and over.</p>
+
+    <h3>What this shows</h3>
+    <p>For a decade, only about 3% of LEGO sets were aimed at ages 12 and over. From 2019 that
+      share climbed, reaching 15.5% by 2022, led by technical sets (about 40%) and licensed sets. Sets for young children and modern-day themes stayed firmly aimed at younger builders.</p>
+
+    <p class="note">Note: Only sets with a recommended age are included (5,787 of 12,757). Few
+      historical sets since 2009 have one, so that panel is mostly empty.</p>
+  </div>
+
+  <div id="map1"></div>
+  <div class="explain">
+    <h3>How to read</h3>
+    <p>Each shape is a district. Darker districts spend more per household each month,
+      on average. Hover over a district to see its value.</p>
+
+    <h3>What this shows</h3>
+    <p>Households in Petaling spend about RM 8,210 a month on average, more than three times
+      as much as in Kalabakan (RM 2,257). The highest-spending areas cluster around
+      Kuala Lumpur, while the lowest are in rural Sabah.</p>
+
+    <p class="note">Note: Perlis, Kuala Lumpur, Labuan and Putrajaya use state-level figures.
+      Six districts created after the boundary map was drawn (Membakut, Gedong, Sebuyau,
+      Siburan, Pantu and Lingga) appear within the older districts they were split from.</p>
+  </div>
+  <script src="js/main.js"></script>
+
+
+</body>
+</html>
