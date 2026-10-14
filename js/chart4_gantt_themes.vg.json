@@ -1,0 +1,60 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Historical themes came in short waves, while culturally inspired Ninjago has run since 2011",
+    "subtitle": "Years each theme was on sale, 1970 to 2025. Gaps mean the theme was paused.",
+    "anchor": "start"
+  },
+  "data": {"url": "data/theme_intervals.csv"},
+  "width": 700,
+  "height": 260,
+  "transform": [{"calculate": "toNumber(datum.end) + 1", "as": "end_plus_one"}],
+  "encoding": {
+    "y": {"field": "theme", "type": "nominal", "title": null,
+          "sort": {"field": "first_start", "op": "min", "order": "ascending"},
+          "axis": {"ticks": false, "domain": false}}
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadius": 2, "height": {"band": 0.6}},
+      "encoding": {
+        "x": {"field": "start", "type": "quantitative", "title": null,
+              "scale": {"domain": [1970, 2026], "nice": false},
+              "axis": {"format": "d", "values": [1970, 1980, 1990, 2000, 2010, 2020],
+                       "grid": true}},
+        "x2": {"field": "end_plus_one"},
+        "color": {
+          "field": "theme_group", "type": "nominal", "title": "Theme group",
+          "scale": {
+            "domain": ["Licensed", "Modern day", "Action/Adventure", "Historical",
+                       "Technical", "Young children", "Other"],
+            "range": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a",
+                      "#66a61e", "#e6ab02", "#a6a6a6"]},
+          "legend": {"orient": "bottom",
+                     "values": ["Historical", "Action/Adventure", "Other"]}
+        },
+        "tooltip": [
+          {"field": "theme", "type": "nominal", "title": "Theme"},
+          {"field": "start", "type": "quantitative", "title": "From"},
+          {"field": "end", "type": "quantitative", "title": "To"},
+          {"field": "sets", "type": "quantitative", "title": "Sets in this run"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.theme == 'Castle'"},
+        {"window": [{"op": "rank", "as": "rank"}],
+         "sort": [{"field": "start", "order": "descending"}]},
+        {"filter": "datum.rank == 1"}
+      ],
+      "mark": {"type": "text", "align": "right", "baseline": "bottom",
+               "dx": 8, "dy": -9, "fontStyle": "italic", "fontSize": 11},
+      "encoding": {
+        "x": {"field": "start", "type": "quantitative"},
+        "text": {"value": "Castle returns in 2025"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}

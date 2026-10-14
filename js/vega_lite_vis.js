@@ -17,3 +17,13 @@ var vg_4 = "js/chart2_histograms_by_decade.vg.json";
 vegaEmbed("#chart2", vg_4).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);
+
+var vg_5 = "js/chart1_heatmap_theme_groups.vg.json";
+vegaEmbed("#chart1", vg_5).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);
+
+var vg_6 = "js/chart4_gantt_themes.vg.json";
+vegaEmbed("#chart4", vg_6).then(function(result) {
+  // Access the Vega view instance as result.view
+}).catch(console.error);
