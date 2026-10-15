@@ -84,9 +84,10 @@ body {
    to the column for specs that use "width": "container" */
 .figure:not(.row) > .vega-embed { width: 100%; }
 
-/* A chart beside its text: the chart keeps its own width, the text fills the rest */
-.row { display: grid; grid-template-columns: auto minmax(220px, 1fr); gap: 36px; align-items: center; }
-.row.flip { grid-template-columns: minmax(220px, 1fr) auto; }
+/* A chart beside its text. Every row uses the same two columns, so all side text
+   starts on one vertical sight line, and its top lines up with the chart title. */
+.row { display: grid; grid-template-columns: 820px 1fr; column-gap: 36px; align-items: start; }
+.side { padding-top: 2px; }
 .side .caption, .side .how-to-read { margin-top: 0; }
 
 /* Big-number callouts */
