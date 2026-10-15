@@ -123,3 +123,11 @@ body {
 .about h2 { font-size: 20px; color: var(--ink); margin: 0 0 10px; }
 .about ul { columns: 2; column-gap: 48px; padding-left: 18px; margin: 0 0 12px; }
 .about li { margin-bottom: 8px; break-inside: avoid; }
+
+/* Source links: underlined, as links are the only place the typography notes allow underlining */
+.about a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+.about a:hover { color: var(--ink); }
+.sources { columns: 2; column-gap: 48px; padding-left: 18px; margin: 0 0 16px; }
+.sources li { margin-bottom: 6px; break-inside: avoid; }
+.about h2 + ul.sources { margin-top: 0; }
+.about ul + h2 { margin-top: 20px; }
