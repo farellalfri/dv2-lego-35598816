@@ -45,7 +45,15 @@ body {
 
 /* Opening */
 .hero { padding: 40px 0 32px; }
-.hero h1 { font-size: 60px; font-weight: 700; line-height: 1.05; margin: 16px 0 6px; }
+/* Page title in a slab serif: chunky, block-like serifs that echo LEGO bricks.
+   Alfa Slab One has a single weight, so font-weight stays at 400 to avoid faux bold. */
+.hero h1 {
+  font-family: "Alfa Slab One", Georgia, "Times New Roman", serif;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 16px 0 6px;
+}
 .standfirst { font-size: 21px; font-weight: 500; color: var(--muted); max-width: 40ch; margin: 0 0 28px; line-height: 1.35; }
 .hook-row {
   display: grid;
@@ -100,8 +108,17 @@ body {
 
 /* Closing and data notes */
 .closing { padding: 40px 0; border-top: 1px solid var(--rule); }
-.closing p { font-size: 27px; font-weight: 600; line-height: 1.4; max-width: 42ch; margin: 0; }
+.closing h2 { font-size: 38px; font-weight: 700; line-height: 1.1; margin: 0 0 24px; }
 .closing .accent { color: var(--red); }
+
+/* Four big numbers recapping the story, in one row */
+.recap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin: 0 0 28px; }
+.recap div { border-top: 4px solid var(--ink); padding-top: 10px; }
+.recap .num { font-size: 44px; font-weight: 700; line-height: 1; margin: 0 0 6px; }
+.recap .num.red { color: var(--red); }
+.recap p { margin: 0; font-size: 15px; }
+
+.closing-text { font-size: 20px; line-height: 1.55; max-width: 60ch; margin: 0; }
 .about { border-top: 1px solid var(--rule); padding: 32px 0 48px; color: var(--muted); font-size: 13px; }
 .about h2 { font-size: 20px; color: var(--ink); margin: 0 0 10px; }
 .about ul { columns: 2; column-gap: 48px; padding-left: 18px; margin: 0 0 12px; }
