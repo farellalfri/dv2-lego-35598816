@@ -1,82 +1,274 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Households around Kuala Lumpur spend over three times as much each month as those in rural Sabah",
+    "text": [
+      "Households around Kuala Lumpur spend over three times",
+      "as much each month as those in rural Sabah"
+    ],
     "subtitle": "Mean monthly household spending by district, 2024 (RM)",
     "anchor": "start"
   },
-  "width": 800,
-  "height": 350,
-  "projection": {"type": "equirectangular"},
+  "width": "container",
+  "height": 360,
+  "projection": {
+    "type": "equirectangular"
+  },
   "layer": [
     {
       "data": {
+        "graticule": {
+          "step": [
+            2,
+            2
+          ],
+          "extent": [
+            [
+              99.5,
+              0.5
+            ],
+            [
+              119.5,
+              7.5
+            ]
+          ]
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#9db4c6",
+        "strokeWidth": 0.6,
+        "strokeDash": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "data": {
         "url": "js/malaysia_districts.topojson",
-        "format": {"type": "topojson", "feature": "districts"}
+        "format": {
+          "type": "topojson",
+          "feature": "districts"
+        }
       },
       "transform": [
-        {"calculate": "datum.properties.state + '|' + datum.properties.district", "as": "key"},
-        {"lookup": "key",
-         "from": {"data": {"url": "data/hies_district.csv"}, "key": "key",
-                  "fields": ["expenditure_mean", "source"]}}
+        {
+          "calculate": "datum.properties.state + '|' + datum.properties.district",
+          "as": "key"
+        },
+        {
+          "lookup": "key",
+          "from": {
+            "data": {
+              "url": "data/hies_district.csv"
+            },
+            "key": "key",
+            "fields": [
+              "expenditure_mean",
+              "source"
+            ]
+          }
+        }
       ],
-      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.3},
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.3
+      },
       "encoding": {
         "color": {
-          "field": "expenditure_mean", "type": "quantitative",
-          "title": "Mean monthly spending (RM)",
-          "scale": {"type": "threshold", "domain": [3200, 3600, 4200, 5000],
-                    "range": ["#ffffcc", "#a1dab4", "#41b6c4", "#2c7fb8", "#253494"]}
+          "field": "expenditure_mean",
+          "type": "quantitative",
+          "title": "RM per month",
+          "scale": {
+            "type": "threshold",
+            "domain": [
+              3200,
+              3600,
+              4200,
+              5000
+            ],
+            "range": [
+              "#ffffcc",
+              "#a1dab4",
+              "#41b6c4",
+              "#2c7fb8",
+              "#253494"
+            ]
+          }
         },
         "tooltip": [
-          {"field": "properties.district", "title": "District"},
-          {"field": "properties.state", "title": "State"},
-          {"field": "expenditure_mean", "title": "RM per month", "format": ","},
-          {"field": "source", "title": "Data level"}
+          {
+            "field": "properties.district",
+            "title": "District"
+          },
+          {
+            "field": "properties.state",
+            "title": "State"
+          },
+          {
+            "field": "expenditure_mean",
+            "title": "RM per month",
+            "format": ","
+          },
+          {
+            "field": "source",
+            "title": "Data level"
+          }
         ]
       }
     },
     {
       "data": {
         "url": "js/malaysia_states.topojson",
-        "format": {"type": "topojson", "feature": "states"}
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
       },
-      "mark": {"type": "geoshape", "filled": false, "stroke": "#555", "strokeWidth": 0.7}
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#555",
+        "strokeWidth": 0.7
+      }
     },
     {
-      "data": {"url": "data/hies_district.csv"},
+      "data": {
+        "url": "data/hies_district.csv"
+      },
       "transform": [
-        {"calculate": "toNumber(datum.expenditure_mean)", "as": "spend"},
-        {"window": [{"op": "rank", "as": "rank_high"}],
-         "sort": [{"field": "spend", "order": "descending"}]},
-        {"window": [{"op": "rank", "as": "rank_low"}],
-         "sort": [{"field": "spend", "order": "ascending"}]},
-        {"filter": "datum.rank_high == 1 || datum.rank_low == 1"},
-        {"calculate": "(datum.rank_high == 1 ? 'Highest: ' : 'Lowest: ') + replace(datum.district, 'W.P. ', '') + ', RM ' + format(datum.spend, ',')",
-         "as": "label"}
+        {
+          "calculate": "toNumber(datum.expenditure_mean)",
+          "as": "spend"
+        },
+        {
+          "window": [
+            {
+              "op": "rank",
+              "as": "rank_high"
+            }
+          ],
+          "sort": [
+            {
+              "field": "spend",
+              "order": "descending"
+            }
+          ]
+        },
+        {
+          "window": [
+            {
+              "op": "rank",
+              "as": "rank_low"
+            }
+          ],
+          "sort": [
+            {
+              "field": "spend",
+              "order": "ascending"
+            }
+          ]
+        },
+        {
+          "filter": "datum.rank_high == 1 || datum.rank_low == 1"
+        },
+        {
+          "calculate": "(datum.rank_high == 1 ? 'Highest: ' : 'Lowest: ') + replace(datum.district, 'W.P. ', '') + ', RM ' + format(datum.spend, ',')",
+          "as": "label"
+        }
       ],
       "encoding": {
-        "longitude": {"field": "lon", "type": "quantitative"},
-        "latitude": {"field": "lat", "type": "quantitative"}
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        }
       },
       "layer": [
-        {"mark": {"type": "circle", "size": 40, "color": "black", "opacity": 1}},
-        {"transform": [{"filter": "datum.rank_high == 1"}],
-         "encoding": {"text": {"field": "label"}},
-         "layer": [
-           {"mark": {"type": "text", "align": "left", "dx": 8, "fontWeight": "bold",
-                     "stroke": "white", "strokeWidth": 3}},
-           {"mark": {"type": "text", "align": "left", "dx": 8, "fontWeight": "bold"}}
-         ]},
-        {"transform": [{"filter": "datum.rank_low == 1"}],
-         "encoding": {"text": {"field": "label"}},
-         "layer": [
-           {"mark": {"type": "text", "align": "right", "dx": -8, "fontWeight": "bold",
-                     "stroke": "white", "strokeWidth": 3}},
-           {"mark": {"type": "text", "align": "right", "dx": -8, "fontWeight": "bold"}}
-         ]}
+        {
+          "mark": {
+            "type": "circle",
+            "size": 40,
+            "color": "black",
+            "opacity": 1
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "datum.rank_high == 1"
+            }
+          ],
+          "encoding": {
+            "text": {
+              "field": "label"
+            }
+          },
+          "layer": [
+            {
+              "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 8,
+                "fontWeight": "bold",
+                "stroke": "white",
+                "strokeWidth": 3
+              }
+            },
+            {
+              "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 8,
+                "fontWeight": "bold"
+              }
+            }
+          ]
+        },
+        {
+          "transform": [
+            {
+              "filter": "datum.rank_low == 1"
+            }
+          ],
+          "encoding": {
+            "text": {
+              "field": "label"
+            }
+          },
+          "layer": [
+            {
+              "mark": {
+                "type": "text",
+                "align": "right",
+                "dx": -8,
+                "fontWeight": "bold",
+                "stroke": "white",
+                "strokeWidth": 3
+              }
+            },
+            {
+              "mark": {
+                "type": "text",
+                "align": "right",
+                "dx": -8,
+                "fontWeight": "bold"
+              }
+            }
+          ]
+        }
       ]
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null,
+      "fill": "#dce9f3"
+    }
+  }
 }

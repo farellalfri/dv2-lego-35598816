@@ -1,43 +1,155 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": ["For over half of Malaysians, Lion Knights' Castle costs",
-             "more than 30% of a month's household spending"],
+    "text": [
+      "For over half of Malaysians, Lion Knights' Castle costs",
+      "more than 30% of a month's household spending"
+    ],
     "subtitle": "Each dot is 10,000 people (2024). Colour: the RM 1,636 set as a share of mean monthly household spending in their district.",
     "anchor": "start"
   },
   "width": "container",
   "height": 400,
-  "projection": {"type": "equirectangular"},
+  "projection": {
+    "type": "equirectangular"
+  },
   "layer": [
     {
-      "data": {"url": "js/malaysia_districts.topojson", "format": {"type": "topojson", "feature": "districts"}},
-      "mark": {"type": "geoshape", "fill": "#f0f0f0", "stroke": "white", "strokeWidth": 0.5}
+      "data": {
+        "graticule": {
+          "step": [
+            2,
+            2
+          ],
+          "extent": [
+            [
+              99.5,
+              0.5
+            ],
+            [
+              119.5,
+              7.5
+            ]
+          ]
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#9db4c6",
+        "strokeWidth": 0.6,
+        "strokeDash": [
+          3,
+          3
+        ]
+      }
     },
     {
-      "data": {"url": "js/malaysia_states.topojson", "format": {"type": "topojson", "feature": "states"}},
-      "mark": {"type": "geoshape", "filled": false, "stroke": "#999", "strokeWidth": 0.6}
+      "data": {
+        "url": "js/malaysia_districts.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "districts"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f7f7f7",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "js/malaysia_states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#999",
+        "strokeWidth": 0.6
+      }
     },
     {
       "data": {
         "url": "data/dot_density.csv",
-        "format": {"type": "csv", "parse": {"lon": "number", "lat": "number", "share_pct": "number"}}
+        "format": {
+          "type": "csv",
+          "parse": {
+            "lon": "number",
+            "lat": "number",
+            "share_pct": "number"
+          }
+        }
       },
-      "mark": {"type": "circle", "size": 9, "opacity": 0.85},
+      "mark": {
+        "type": "circle",
+        "size": 9,
+        "opacity": 0.85
+      },
       "encoding": {
-        "longitude": {"field": "lon", "type": "quantitative"},
-        "latitude": {"field": "lat", "type": "quantitative"},
-        "color": {"field": "share_pct", "type": "quantitative", "title": "Castle as % of monthly spending",
-                  "scale": {"type": "threshold", "domain": [20, 30, 40, 50],
-                            "range": ["#ffffd4", "#fed98e", "#fe9929", "#d95f0e", "#993404"]},
-                  "legend": {"orient": "right", "titleLimit": 220}},
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "share_pct",
+          "type": "quantitative",
+          "title": "Castle as % of monthly spending",
+          "scale": {
+            "type": "threshold",
+            "domain": [
+              20,
+              30,
+              40,
+              50
+            ],
+            "range": [
+              "#ffffd4",
+              "#fed98e",
+              "#fe9929",
+              "#d95f0e",
+              "#993404"
+            ]
+          },
+          "legend": {
+            "orient": "right",
+            "titleLimit": 220
+          }
+        },
         "tooltip": [
-          {"field": "district", "type": "nominal", "title": "District"},
-          {"field": "state", "type": "nominal", "title": "State"},
-          {"field": "share_pct", "type": "quantitative", "title": "Castle as % of spending", "format": ".1f"}
+          {
+            "field": "district",
+            "type": "nominal",
+            "title": "District"
+          },
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "title": "Castle as % of spending",
+            "format": ".1f"
+          }
         ]
       }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null,
+      "fill": "#dce9f3"
+    }
+  }
 }
