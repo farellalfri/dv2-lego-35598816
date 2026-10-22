@@ -64,7 +64,7 @@ vegaEmbed("#chart9", vg_11, {"actions": false}).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);
 
-var vg_12 = "js/map2_dorling_states.vg.json";
+var vg_12 = "js/map2_dot_density.vg.json";
 vegaEmbed("#map2", vg_12, {"actions": false}).then(function(result) {
   // Access the Vega view instance as result.view
 }).catch(console.error);
